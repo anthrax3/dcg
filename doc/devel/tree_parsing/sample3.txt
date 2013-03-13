@@ -1,0 +1,23 @@
+TemplateAst
+    Head
+        Parameters
+            Parameter (Name="name", Type="string")
+            Parameter (Name="age", Type="int")
+            Parameter (Name="sex", Type="int")
+        Global (Value="...")
+    Body
+        StaticText (Value="<persons>")
+        SectionReference (Value="header", LeadingChar=" ", LeadingCount="4")
+        SectionReference (Value="persons", LeadingChar=" ", LeadingCount="4")
+        StaticText (Value="</persons>")
+        SectionDefinition (Name="header")
+            StaticText (Value="<version value=\"1.0\"/>")
+        SectionDefinition (Name="persons")
+            StaticText (Value="<person name=\"")
+            Evaluation (Expression="name")
+            StaticText (Value="\" age=\"")
+            Evaluation (Expression="age")
+            Between (LeadingCount="0")
+                DynamicText (Value="    if (sex == 0) {")
+                Text
+                    StaticText (Value="man", IsNewLine="false", LeadingCount="0")

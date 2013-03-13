@@ -1,0 +1,32 @@
+@param name: string
+@param age: int
+@param sex: int
+@
+@global
+string Cap(string text) {
+    return text;
+}
+@end_global
+@
+<persons>
+    @+ header
+    @+ persons
+</persons>
+@
+@section header
+<version value="1.0"/>
+@end_section
+@
+@section persons
+<person name="@(name)" age="@(age)" sex="@{
+    if (sex == 0) {
+        @text
+        man@
+        @end_text
+    } else {
+        @text
+        woman@
+        @end_text
+    }
+@}"/>
+@end_section

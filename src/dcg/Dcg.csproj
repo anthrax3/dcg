@@ -1,0 +1,140 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{72D83BF2-9F01-4D56-A6C1-8602B20C4868}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cavingdeep.Dcg</RootNamespace>
+    <AssemblyName>Cavingdeep.Dcg</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Cavingdeep.Dcg.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deployment|AnyCPU' ">
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\..\bin\Cavingdeep.Dcg.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>none</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="At\AtParser.cs" />
+    <Compile Include="At\AtTemplate.cs" />
+    <Compile Include="At\AtTemplateProxy.cs" />
+    <Compile Include="At\IAtTemplate.cs" />
+    <Compile Include="At\IAtTemplateInstance.cs" />
+    <Compile Include="At\Lexing\Context.cs" />
+    <Compile Include="At\Lexing\ContextStack.cs" />
+    <Compile Include="At\Lexing\EvaluationDirectiveParser.cs" />
+    <Compile Include="At\Lexing\IDirectiveParser.cs" />
+    <Compile Include="At\Lexing\OutputContext.cs" />
+    <Compile Include="At\Lexing\TemplateMode.cs" />
+    <Compile Include="At\Parsing\AtTemplateAst.cs" />
+    <Compile Include="At\Parsing\Body.cs" />
+    <Compile Include="At\Parsing\IBorder.cs" />
+    <Compile Include="At\Parsing\Directive.cs" />
+    <Compile Include="At\Parsing\Code.cs" />
+    <Compile Include="At\Parsing\Between.cs" />
+    <Compile Include="At\Parsing\DirectiveList.cs" />
+    <Compile Include="At\Parsing\IIndentScope.cs" />
+    <Compile Include="At\Parsing\SectionDefinition.cs" />
+    <Compile Include="At\Parsing\SectionReference.cs" />
+    <Compile Include="At\Parsing\Output.cs" />
+    <Compile Include="At\Parsing\MultiLineEvaluation.cs" />
+    <Compile Include="At\Parsing\Execution.cs" />
+    <Compile Include="At\Parsing\DynamicText.cs" />
+    <Compile Include="At\Parsing\Text.cs" />
+    <Compile Include="At\Parsing\Evaluation.cs" />
+    <Compile Include="At\Parsing\StaticText.cs" />
+    <Compile Include="At\Parsing\Parameter.cs" />
+    <Compile Include="At\Parsing\Import.cs" />
+    <Compile Include="At\Parsing\Reference.cs" />
+    <Compile Include="At\Parsing\Head.cs" />
+    <Compile Include="At\Walkers\SourceGenerator.cs" />
+    <Compile Include="At\Walkers\IAstWalker.cs" />
+    <Compile Include="Exceptions\TemplateCompilationException.cs" />
+    <Compile Include="Exceptions\TemplateException.cs" />
+    <Compile Include="Exceptions\TemplateParsingException.cs" />
+    <Compile Include="Exceptions\TemplateRuntimeException.cs" />
+    <Compile Include="ITemplate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TempFileManager.cs" />
+    <Compile Include="TemplateCompiler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="clean.bat" />
+    <None Include="Key.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterResGen">
+    <ItemGroup>
+      <ManifestResourceWithNoCulture Include="clean.bat" />
+      <ManifestResourceWithNoCulture Include="Clean.exe" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <MyDeploymentDir>..\bin</MyDeploymentDir>
+  </PropertyGroup>
+  <Target Name="BeforeRebuild">
+    <RemoveDir Directories="$(MyDeploymentDir)" Condition="Exists('$(MyDeploymentDir)')" />
+  </Target>
+  <Target Name="AfterBuild">
+    <Delete Files="Clean.exe" ContinueOnError="true" />
+    <MakeDir Directories="$(MyDeploymentDir)" Condition="!Exists('$(MyDeploymentDir)')" />
+    <Copy SourceFiles="@(FileWrites)" DestinationFolder="$(MyDeploymentDir)" SkipUnchangedFiles="true" Condition="'%(RelativeDir)'!='obj\$(Configuration)\'" />
+  </Target>
+</Project>

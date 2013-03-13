@@ -1,0 +1,48 @@
+TemplateProgram
+    References
+    Imports
+    Parameters
+        [0] (Parameter)
+            Name: name
+            Type: string
+        [1] (Parameter)
+            Name: age
+            Type: int
+        [2] (Parameter)
+            Name: sex
+            Type: int
+    Global
+        Body: ...
+    Body (NodeCollection)
+        [0] (TextNode)
+            Value: <persons>
+        [1] (SectionReference)
+            Value: header
+        [2] (SectionReference)
+            Value: persons
+        [3] (TextNode)
+            Value: </persons>
+        [4] (SectionDefinition)
+            Name: header
+            Body (NodeCollection)
+                [0] (TextNode)
+                    Value: <version value="1.0"/>
+        [5] (SectionDefinition)
+            Name: persons
+            Body (NodeCollection)
+                [0] (TextNode)
+                    Value: <person name="
+                [1] (EvaluationNode)
+                    Expression: name
+                [2] (TextNode)
+                    Value: " sex="
+                [3] (BetweenNode)
+                    Body (NodeCollection)
+                        [0] (CodeNode)
+                            Value:     if (sex == 0) {
+                        [1] (StaticNode)
+                            Body (NodeCollection)
+                                [0] (TextNode)
+                                    IsNewLine: true
+                                    Value: man
+                        [2] (CodeNode)

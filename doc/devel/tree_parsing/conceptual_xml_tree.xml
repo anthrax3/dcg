@@ -1,0 +1,33 @@
+﻿<template>
+    <head>
+        <references>
+            <reference value=""/>
+            <reference value=""/>
+        </references>
+        <imports>
+            <import value=""/>
+            <import value=""/>
+        </imports>
+        <!-- ... -->
+        <global value=""/>
+    </head>
+    <body>
+        <text value="" newline="false"/>
+        <sectionReference value=""/>
+        <text value="" newline="false"/>
+        <sectionDefinition name="">
+            <text value="" newline="false"/>
+        </sectionDefinition>
+        <sectionDefinition name="">
+            <text value="" newline="false"/>
+            <evaluation expression=""/>
+            <text value="" newline="false"/>
+            <between>
+                <code value=""/>
+                <static>
+                    <text value="" newline="false"/>
+                </static>
+            </between>
+        </sectionDefinition>
+    </body>
+</template>

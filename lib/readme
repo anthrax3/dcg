@@ -1,0 +1,7 @@
+Each library should be contained in it's own folder named as follow:
+
+LIBNAME-VERSION
+
+Example:
+
+log4net-1.2.9beta

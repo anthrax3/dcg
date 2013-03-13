@@ -1,0 +1,765 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cavingdeep.Dcg</name>
+    </assembly>
+    <members>
+        <member name="T:Cavingdeep.Dcg.At.AtParser">
+            <summary>
+            At syntax parser.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.Lexing.OutputContext">
+            <summary>
+            Represents a static line context.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TemplateException">
+            <summary>
+            This is the base exception for all template related
+            exceptions.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateException.#ctor">
+            <summary>
+            Creates a new instance.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateException.#ctor(System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes
+            the exception.</param>
+            <param name="innerException"> The exception that is the
+            cause of the current exception. If the innerException
+            parameter is not a null reference, the current exception is
+            raised in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized
+            object data.</param>
+            <param name="context">The contextual information about
+            the source or destination.</param>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TemplateParsingException">
+            <summary>
+            This is thrown when a <see cref="T:Cavingdeep.Dcg.ITemplate"/> instance
+            cannot be successfully parsed.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateParsingException.#ctor">
+            <summary>
+            Creates a new instance.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateParsingException.#ctor(System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateParsingException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+            <param name="innerException">
+            The exception that is the cause of the current exception.
+            If the innerException parameter is not a null reference,
+            the current exception is raised in a catch
+            block that handles the inner exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateParsingException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized
+            object data.</param>
+            <param name="context">The contextual information about the
+            source or destination.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateParsingException.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Cavingdeep.Dcg.TemplateParsingException.SourceLine">
+            <summary>
+            Gets/Sets the source line number where this exception occurred.
+            </summary>
+            <value>Source line number.</value>
+        </member>
+        <member name="P:Cavingdeep.Dcg.TemplateParsingException.SourceFileName">
+            <summary>
+            Gets/Sets the template's file name where this exception occurred.
+            If template is not read from file, this returns null.
+            </summary>
+            <value>Template file name.</value>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.IAtTemplate">
+            <summary>
+            AtTemplate inteface.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.ITemplate">
+            <summary>
+            Template interface.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.ITemplate.Parse">
+            <summary>
+            Parses template before rendering.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.ITemplate.Render">
+            <summary>
+            Renders template as single output template.
+            </summary>
+            <returns>Output of template.</returns>
+        </member>
+        <member name="M:Cavingdeep.Dcg.ITemplate.Render(System.IO.TextWriter)">
+            <summary>
+            Renders template by passsing explicitly a writer.
+            </summary>
+            <param name="writer">Writer used to write template
+            output.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.ITemplate.Render(System.Collections.Generic.IDictionary{System.String,System.IO.TextWriter})">
+            <summary>
+            Renders template as multi-output template.
+            </summary>
+            <param name="writers">Dictionary of writers
+            that template uses for output.</param>
+        </member>
+        <member name="P:Cavingdeep.Dcg.ITemplate.Context">
+            <summary>
+            Context information (parameter values) template
+            requires.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.ITemplate.Debug">
+            <summary>
+            Indicates if it is necessary to generate debugging
+            information for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.ITemplate.SourceCode">
+            <summary>
+            Generated source code for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.ITemplate.GeneratedAssemblyPath">
+            <summary>
+            Generated assembly path.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.IAtTemplate.NewInstance">
+            <summary>
+            Creates a new instance of template
+            generation object.
+            </summary>
+            <returns>New instance of template
+            generation object.</returns>
+        </member>
+        <member name="T:Cavingdeep.Dcg.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.BadSectionDef">
+             <summary>
+               Looks up a localized string similar to Bad section definition, it must be something like this:
+            
+            @section name(param1: int, param2: MyClass).
+             </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.BadSectionRef">
+             <summary>
+               Looks up a localized string similar to Bad section reference, it must be something like this:
+            
+            @+ name(param1, param2).
+             </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.BetweenDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find between directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.CodeDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find code directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.ErrorsCount">
+            <summary>
+              Looks up a localized string similar to There must be at least 1 error..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.GlobalDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find global directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.ImportDirectiveWrong">
+             <summary>
+               Looks up a localized string similar to Bad import directive. It must be something like this:
+            
+            @import System.Windows.Forms.
+             </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.NoOutputKeyProvided">
+            <summary>
+              Looks up a localized string similar to No output key provided, key must not be empty..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.OutputDirectiveSpaceWrong">
+            <summary>
+              Looks up a localized string similar to Output directive content should be aligned with the same white spaces..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.OutputDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find output directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.ParamDirectiveWrong">
+             <summary>
+               Looks up a localized string similar to Param directive wrong. It must be something like this:
+            
+            @param paramName:paramType.
+             </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.ReferenceDirectiveWrong">
+             <summary>
+               Looks up a localized string similar to Bad reference directive. It must be something like this:
+            
+            @reference assembly1.dll.
+             </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.SectionDefDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find section definition directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.SectionDefNotTopLevel">
+            <summary>
+              Looks up a localized string similar to Section definition should appear in top level, that is, not under any other directive..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.SectionNameNotUnique">
+            <summary>
+              Looks up a localized string similar to A section&apos;s name should be unique within template, section name &quot;{0}&quot; is not..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.StackEmpty">
+            <summary>
+              Looks up a localized string similar to Stack is empty or has insufficient elements..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.TextDirectiveSpaceWrong">
+            <summary>
+              Looks up a localized string similar to Text directive content should be aligned with the same white spaces..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.TextDirectiveWrong">
+            <summary>
+              Looks up a localized string similar to Cannot find text directive match..
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.Properties.Resources.WrongEvaluationDirective">
+            <summary>
+              Looks up a localized string similar to A &apos;)&apos; is missing in evaluation directive..
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TempFileManager">
+            <summary>
+            Manages files that DCG generates.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TemplateCompiler">
+            <summary>
+            Compiles source code for a template.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.Lexing.IDirectiveParser">
+            <summary>
+            Directive parser.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            <summary>
+            This is thrown when a runtime error ocurrs during
+            template transformation.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateRuntimeException.#ctor">
+            <summary>
+            Creates a new instance.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateRuntimeException.#ctor(System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateRuntimeException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+            <param name="innerException">
+            The exception that is the cause of the current exception.
+            If the innerException parameter is not a null reference,
+            the current exception is raised in a catch block that
+            handles the inner exception.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateRuntimeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized
+            object data.</param>
+            <param name="context">The contextual information about the
+            source or destination.</param>
+        </member>
+        <member name="P:Cavingdeep.Dcg.TemplateRuntimeException.SourceFileName">
+            <summary>
+            Gets/Sets the template's file name where this exception occurred.
+            If template is not read from file, this returns null.
+            </summary>
+            <value>Template file name.</value>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.Lexing.TemplateMode">
+            <summary>
+            Template context mode.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.Lexing.Context">
+            <summary>
+            Template context. That is, whether it is in static context or dynamic context.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.AtTemplateProxy">
+            <summary>
+            An <see cref="T:Cavingdeep.Dcg.At.AtTemplate"/> that runs on another application
+            domain.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.#ctor(System.String)">
+            <summary>
+            Creates a template with specified text that
+            runs on another application domain.
+            </summary>
+            <param name="text">Template text.</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="text"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.#ctor(System.String,System.String)">
+            <summary>
+            Creates a template with specified text that
+            runs on another application domain.
+            </summary>
+            <param name="text">Template text.</param>
+            <param name="compilerVersion">Indicates the compiler version to use.
+            Such as "v3.5" or "v2.0".</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="text"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Creates a template with reading from a file that
+            runs on another application domain.
+            </summary>
+            <param name="templateFile">Template file.</param>
+            <param name="encoding">Encoding used to read
+            file content, if NULL the system default encoding
+            is used.</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="templateFile"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.#ctor(System.String,System.Text.Encoding,System.String)">
+            <summary>
+            Creates a template with reading from a file that
+            runs on another application domain.
+            </summary>
+            <param name="templateFile">Template file.</param>
+            <param name="encoding">Encoding used to read
+            file content, if NULL the system default encoding
+            is used.</param>
+            <param name="compilerVersion">Indicates the compiler version to use.
+            Such as "v3.5" or "v2.0".</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="templateFile"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.Parse">
+            <summary>
+            Parse template before rendering.
+            </summary>
+            <remarks>
+            Once parsed, you can render as much times as you want.
+            </remarks>
+            <exception cref="T:Cavingdeep.Dcg.TemplateParsingException">
+            If an error ocurrs during parsing such as wrong
+            syntax used.
+            </exception>
+            <exception cref="T:Cavingdeep.Dcg.TemplateCompilationException">
+            If a bad dynamic language syntax is found such as
+            a bad C# code syntax.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.Render">
+            <summary>
+            Renders template as single output template.
+            </summary>
+            <returns>Output of template.</returns>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.Render(System.IO.TextWriter)">
+            <summary>
+            Renders template by passsing explicitly a writer.
+            </summary>
+            <param name="writer">Writer used to write template
+            output.</param>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.Render(System.Collections.Generic.IDictionary{System.String,System.IO.TextWriter})">
+            <summary>
+            Renders template as multi-output template.
+            </summary>
+            <param name="writers">Dictionary of writers
+            that template uses for output.</param>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.NewInstance">
+            <summary>
+            Creates a new instance of template
+            generation object.
+            </summary>
+            <returns>New instance of template
+            generation object.</returns>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplateProxy.Dispose">
+            <summary>
+            Unload application domain created by this instance and
+            clean temp files.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplateProxy.Context">
+            <summary>
+            Context information (parameter values) template
+            requires.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplateProxy.Debug">
+            <summary>
+            Indicates if it is necessary to generate debugging
+            information for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplateProxy.SourceCode">
+            <summary>
+            Generated source code for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplateProxy.GeneratedAssemblyPath">
+            <summary>
+            Generated assembly path.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.AtTemplate">
+            <summary>
+            At language based template.
+            </summary>
+            <remarks>
+            <para>At language is a powerful yet easy to understand template
+            language, here is an usage example.</para>
+            <example>
+            Sample hello.al template
+            <code>
+            @param name: string
+            @
+            Hello @(name).
+            </code>
+            Sample usage
+            <code>
+            public static void Main()
+            {
+                IAtTemplate template = new AtTemplate("hello.al", null);
+                template.Parse();
+                template.Context = new object[] {"Teddy"};
+            
+                Console.WriteLine(template.Render());
+            }
+            </code>
+            </example>
+            </remarks>
+        </member>
+        <member name="F:Cavingdeep.Dcg.At.AtTemplate.MainOutputKey">
+            <summary>
+            Main render output key.
+            </summary>
+            <remarks>
+            Use this when you need to reference the main
+            output in multi-output rendering.
+            </remarks>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.#ctor(System.String)">
+            <summary>
+            Creates a template with specified text.
+            </summary>
+            <param name="text">Template text.</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="text"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.#ctor(System.String,System.String)">
+            <summary>
+            Creates a template with specified text.
+            </summary>
+            <param name="text">Template text.</param>
+            <param name="compilerVersion">Indicates the compiler version to use.
+            Such as "v3.5" or "v2.0".</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="text"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Creates a template with reading from a file.
+            </summary>
+            <param name="templateFile">Template file.</param>
+            <param name="encoding">Encoding used to read
+            file content, if NULL the system default encoding
+            is used.</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="templateFile"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.#ctor(System.String,System.Text.Encoding,System.String)">
+            <summary>
+            Creates a template with reading from a file.
+            </summary>
+            <param name="templateFile">Template file.</param>
+            <param name="encoding">Encoding used to read
+            file content, if NULL the system default encoding
+            is used.</param>
+            <param name="compilerVersion">Indicates the compiler version to use.
+            Such as "v3.5" or "v2.0".</param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="templateFile"/> is null or empty.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.InitializeLifetimeService">
+            <summary>
+            Initializing and controlling life time.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.Parse">
+            <summary>
+            Parse template before rendering.
+            </summary>
+            <remarks>
+            Once parsed, you can render as much times as you want.
+            </remarks>
+            <exception cref="T:Cavingdeep.Dcg.TemplateParsingException">
+            If an error ocurrs during parsing such as wrong
+            syntax used.
+            </exception>
+            <exception cref="T:Cavingdeep.Dcg.TemplateCompilationException">
+            If a bad dynamic language syntax is found such as
+            a bad C# code syntax.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.Render">
+            <summary>
+            Renders template as single output template.
+            </summary>
+            <returns>Output of template.</returns>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.Render(System.IO.TextWriter)">
+            <summary>
+            Renders template by passsing explicitly a writer.
+            </summary>
+            <param name="writer">Writer used to write template
+            output.</param>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.Render(System.Collections.Generic.IDictionary{System.String,System.IO.TextWriter})">
+            <summary>
+            Renders template as multi-output template.
+            </summary>
+            <param name="writers">Dictionary of writers
+            that template uses for output.</param>
+            <exception cref="T:Cavingdeep.Dcg.TemplateRuntimeException">
+            If an error ocurrs during rendering such as
+            a C# runtime exception.
+            </exception>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.NewInstance">
+            <summary>
+            Creates a new instance of template
+            generation object.
+            </summary>
+            <returns>New instance of template
+            generation object.</returns>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplate.Context">
+            <summary>
+            Context information (parameter values) template
+            requires.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplate.Debug">
+            <summary>
+            Indicates if it is necessary to generate debugging
+            information for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplate.SourceCode">
+            <summary>
+            Generated source code for template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.AtTemplate.GeneratedAssemblyPath">
+            <summary>
+            Generated assembly path.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.IAtTemplateInstance">
+            <summary>
+            Template generation object interface.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.IAtTemplateInstance.Render">
+            <summary>
+            Renders template as single output template.
+            </summary>
+            <returns>Output of template.</returns>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.IAtTemplateInstance.Render(System.IO.TextWriter)">
+            <summary>
+            Renders template by passsing explicitly a writer.
+            </summary>
+            <param name="writer">Writer used to write template
+            output.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.IAtTemplateInstance.Render(System.Collections.Generic.IDictionary{System.String,System.IO.TextWriter})">
+            <summary>
+            Renders template as multi-output template.
+            </summary>
+            <param name="writers">Dictionary of writers
+            that template uses for output.</param>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.IAtTemplateInstance.Template">
+            <summary>
+            This instance's template.
+            </summary>
+        </member>
+        <member name="P:Cavingdeep.Dcg.At.IAtTemplateInstance.Context">
+            <summary>
+            Context information (parameter values) template
+            requires.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.At.AtTemplate.AtTemplateInstance.InitializeLifetimeService">
+            <summary>
+            Initializing and controlling life time.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.At.Lexing.EvaluationDirectiveParser">
+            <summary>
+            A evaluation directive parser.
+            </summary>
+        </member>
+        <member name="T:Cavingdeep.Dcg.TemplateCompilationException">
+            <summary>
+            Thrown when template's dynamic code cannot be compiled.
+            </summary>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateCompilationException.#ctor(System.CodeDom.Compiler.CompilerErrorCollection)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="errors">A collection containing compilation
+            errors.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateCompilationException.#ctor(System.String,System.CodeDom.Compiler.CompilerErrorCollection)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="message">A message that describes the
+            exception.</param>
+            <param name="errors">A collection containing compilation
+            errors.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateCompilationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized
+            object data.</param>
+            <param name="context">The contextual information about
+            the source or destination.</param>
+        </member>
+        <member name="M:Cavingdeep.Dcg.TemplateCompilationException.ToString">
+            <summary>
+            A string representing compilation errors.
+            </summary>
+            <returns>String representation of compilation
+            errors.</returns>
+        </member>
+        <member name="P:Cavingdeep.Dcg.TemplateCompilationException.Errors">
+            <summary>
+            Gets compilation errors.
+            </summary>
+        </member>
+    </members>
+</doc>

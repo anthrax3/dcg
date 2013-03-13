@@ -1,0 +1,13 @@
+﻿@param n: int
+@+ List(n)
+@section List(n: int)
+@code
+    if (n > 0)
+    {
+        @text
+        @(n), @
+        @+ List(n - 1)
+        @end_text
+    }
+@end_code
+@end_section

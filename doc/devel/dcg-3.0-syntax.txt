@@ -1,0 +1,91 @@
+comment                            @#
+
+references                         @reference assembly1
+                                   @reference assembly2
+imports                            @import namespace1
+                                   @import namespace2
+parameters                         @param name1:type1
+                                   @param name2:type2
+global block                       @global ... @end_global
+
+execution                          @!
+evaluation                         @( ... )
+muti-line evaluation               @=
+code block                         @code ... @end_code
+text block                         @text ... @end_text
+between block                      @{ ... @}
+escape character                   @@
+whitespace handling character      @
+output block                       @output writer_key ... @end_output
+section reference                  @+ section_name(paramName:paramType, ...)
+section definition                 @section name(param1, param2, ...) ... @end_section
+
+
+
+Gender is @(gender == Gender.Male ? "Male" : "Female").
+
+Gender is @
+@!if (gender == Gender.Male) {
+Male@
+@!} else {
+Female@
+@!}
+.
+
+Gender is @
+@code
+if (gender == Gender.Male) {
+    Dcg.Write("Male");
+} else {
+    Dcg.Write("Female");
+}
+@end_code
+.
+
+    Gender is @{
+    if (gender == Gender.Male)
+    {
+        @text
+        Male@
+        @end_text
+    }
+    else
+    {
+        @text
+        Female@
+        @end_text
+    }
+    @}.
+
+
+@# This is a sample file to test
+@# new syntax' feasibility
+@
+@param count: int
+@
+int[] numbers = new int[] {@
+@code
+for (int i = 1; i <= count; i++)
+{
+    @text
+    @(i), 
+    @end_text
+}
+@end_code
+};
+
+int[] numbers = new int[] {@
+@! for (int i = 1; i <= count; i++)
+@! {
+@(i), 
+@! }
+};
+
+public class A
+{
+    @! while (true)
+    @! {
+    algo
+    
+    @! }
+}
